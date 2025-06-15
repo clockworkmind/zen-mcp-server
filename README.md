@@ -3,7 +3,7 @@
 https://github.com/user-attachments/assets/8097e18e-b926-4d8b-ba14-a979e4c58bda
 
 <div align="center">  
-  <b>🤖 Claude + [Gemini / O3 / OpenRouter / Ollama / Any Model] = Your Ultimate AI Development Team</b>
+  <b>🤖 Claude + [Gemini / O3 / OpenRouter / Requesty / Ollama / Any Model] = Your Ultimate AI Development Team</b>
 </div>
 
 <br/>
@@ -102,10 +102,14 @@ The final implementation resulted in a 26% improvement in JSON parsing performan
 
 ### 1. Get API Keys (at least one required)
 
-**Option A: OpenRouter (Access multiple models with one API)**
+**Option A: OpenRouter/Requesty (Access multiple models with one API)**
 - **OpenRouter**: Visit [OpenRouter](https://openrouter.ai/) for access to multiple models through one API. [Setup Guide](docs/custom_models.md)
   - Control model access and spending limits directly in your OpenRouter dashboard
   - Configure model aliases in [`conf/custom_models.json`](conf/custom_models.json)
+
+- **Requesty**: Visit [Requesty](https://requesty.ai/) for alternative access to multiple models through their API
+  - Control model access and spending limits in your Requesty dashboard
+  - Configure model aliases in [`conf/requesty_models.json`](conf/requesty_models.json)
 
 **Option B: Native APIs**
 - **Gemini**: Visit [Google AI Studio](https://makersuite.google.com/app/apikey) and generate an API key. For best results with Gemini 2.5 Pro, use a paid API key as the free tier has limited access to the latest models.
@@ -151,6 +155,7 @@ nano .env
 # GEMINI_API_KEY=your-gemini-api-key-here  # For Gemini models
 # OPENAI_API_KEY=your-openai-api-key-here  # For O3 model
 # OPENROUTER_API_KEY=your-openrouter-key  # For OpenRouter (see docs/custom_models.md)
+# REQUESTY_API_KEY=your-requesty-key     # For Requesty models
 
 # For local models (Ollama, vLLM, etc.) - Note: Use host.docker.internal for Docker networking:
 # CUSTOM_API_URL=http://host.docker.internal:11434/v1  # Ollama example (NOT localhost!)
@@ -548,6 +553,9 @@ DEFAULT_MODEL=auto  # Claude picks the best model automatically
 # API Keys (at least one required)
 GEMINI_API_KEY=your-gemini-key    # Enables Gemini Pro & Flash
 OPENAI_API_KEY=your-openai-key    # Enables O3, O3mini, O4-mini, O4-mini-high
+OPENROUTER_API_KEY=your-key       # Enables OpenRouter models
+REQUESTY_API_KEY=your-requesty-key # Enables Requesty models
+CUSTOM_API_URL=http://...         # Enables custom endpoints
 ```
 
 **Available Models:**

@@ -44,8 +44,9 @@ OPENAI_API_KEY=your-openai-key    # Enables O3, O3-mini
 | **`o4-mini-high`** | OpenAI | 200K tokens | Enhanced reasoning | Complex tasks requiring deeper analysis |
 | **`llama`** (Llama 3.2) | Custom/Local | 128K tokens | Local inference, privacy | On-device analysis, cost-free processing |
 | **Any model** | OpenRouter | Varies | Access to GPT-4, Claude, Llama, etc. | User-specified or based on task requirements |
+| **Requesty models** | Requesty | Varies | Alternative access to commercial models | User-specified or based on configuration |
 
-**Mix & Match Providers:** Use multiple providers simultaneously! Set both `OPENROUTER_API_KEY` and `CUSTOM_API_URL` to access 
+**Mix & Match Providers:** Use multiple providers simultaneously! Set `OPENROUTER_API_KEY`, `REQUESTY_API_KEY`, and `CUSTOM_API_URL` to access 
 cloud models (expensive/powerful) AND local models (free/private) in the same conversation.
 
 **Manual Model Selection:**
@@ -87,6 +88,9 @@ GOOGLE_ALLOWED_MODELS=flash
 # Only allow specific OpenRouter models
 OPENROUTER_ALLOWED_MODELS=opus,sonnet,mistral
 
+# Only allow specific Requesty models
+REQUESTY_ALLOWED_MODELS=claude-4-sonnet,gpt-4.1
+
 # Use shorthand names or full model names
 OPENAI_ALLOWED_MODELS=mini,o3-mini  # mini = o4-mini
 ```
@@ -103,11 +107,13 @@ OPENAI_ALLOWED_MODELS=mini,o3-mini  # mini = o4-mini
 OPENAI_ALLOWED_MODELS=o4-mini
 GOOGLE_ALLOWED_MODELS=flash
 OPENROUTER_ALLOWED_MODELS=haiku,sonnet
+REQUESTY_ALLOWED_MODELS=claude-4-sonnet
 
 # Single model per provider
 OPENAI_ALLOWED_MODELS=o4-mini
 GOOGLE_ALLOWED_MODELS=pro
 OPENROUTER_ALLOWED_MODELS=opus
+REQUESTY_ALLOWED_MODELS=gpt-4.1
 ```
 
 **Notes:**

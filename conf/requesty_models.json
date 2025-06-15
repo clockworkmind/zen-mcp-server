@@ -1,0 +1,130 @@
+{
+  "_README": {
+    "description": "Model configuration for Requesty.ai provider",
+    "usage": "Models accessible via aliases (e.g., 'claude') or explicit selection (e.g., 'requesty:claude')",
+    "provider": "Requesty.ai - Unified API for multiple AI models",
+    "documentation": "https://requesty.ai",
+    "instructions": [
+      "Add new models by copying an existing entry and modifying it",
+      "Aliases are case-insensitive and can overlap with other providers",
+      "Priority-based resolution: first provider in PROVIDER_PRIORITY_ORDER wins",
+      "Use 'requesty:alias' for explicit Requesty selection"
+    ]
+  },
+  "models": [
+    {
+      "model_name": "coding/claude-4-sonnet",
+      "aliases": ["claude", "sonnet", "claude-sonnet"],
+      "context_window": 200000,
+      "supports_extended_thinking": false,
+      "supports_system_prompts": true,
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_json_mode": false,
+      "description": "Anthropic Claude 4 Sonnet via Requesty"
+    },
+    {
+      "model_name": "anthropic/claude-opus-4-20250514",
+      "aliases": ["opus", "claude-opus", "claude4-opus", "claude-4-opus"],
+      "context_window": 200000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": false,
+      "supports_function_calling": false,
+      "description": "Claude 4 Opus - Most capable Claude model"
+    },
+    {
+      "model_name": "anthropic/claude-3-5-haiku-latest",
+      "aliases": ["haiku", "claude-haiku", "claude35-haiku", "claude-3-5-haiku"],
+      "context_window": 200000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": false,
+      "supports_function_calling": false,
+      "description": "Claude 3.5 Haiku - Fast and efficient"
+    },
+    {
+      "model_name": "coding/gemini-2.5-pro-preview-05-06",
+      "aliases": ["gemini-pro", "pro", "gemini"],
+      "context_window": 1000000,
+      "supports_extended_thinking": true,
+      "supports_system_prompts": true,
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_json_mode": true,
+      "description": "Google Gemini 2.5 Pro via Requesty"
+    },
+    {
+      "model_name": "coding/gemini-2.5-flash-preview-05-20",
+      "aliases": ["gemini-flash", "flash"],
+      "context_window": 1000000,
+      "supports_extended_thinking": false,
+      "supports_system_prompts": true,
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_json_mode": true,
+      "description": "Google Gemini 2.5 Flash via Requesty"
+    },
+    {
+      "model_name": "mistral/mistral-large-latest",
+      "aliases": ["mistral-large", "mistral"],
+      "context_window": 128000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "description": "Mistral's largest model"
+    },
+    {
+      "model_name": "deepseek/deepseek-reasoner",
+      "aliases": ["deepseek-r1", "deepseek", "r1", "deepseek-thinking", "deepseek-reasoner"],
+      "context_window": 65536,
+      "supports_extended_thinking": true,
+      "supports_json_mode": true,
+      "supports_function_calling": false,
+      "description": "DeepSeek R1 with thinking mode - advanced reasoning capabilities"
+    },
+    {
+      "model_name": "perplexity/sonar",
+      "aliases": ["perplexity", "sonar"],
+      "context_window": 131072,
+      "supports_extended_thinking": false,
+      "supports_json_mode": false,
+      "supports_function_calling": false,
+      "description": "Perplexity's Sonar with web search"
+    },
+    {
+      "model_name": "openai/o3",
+      "aliases": ["o3"],
+      "context_window": 200000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "description": "OpenAI's o3 model - well-rounded and powerful across domains"
+    },
+    {
+      "model_name": "openai/o3-mini",
+      "aliases": ["o3-mini", "o3mini"],
+      "context_window": 200000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "description": "OpenAI's o3-mini model - balanced performance and speed"
+    },
+    {
+      "model_name": "openai/o3-pro",
+      "aliases": ["o3-pro", "o3pro"],
+      "context_window": 200000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "description": "OpenAI's o3-pro model - professional-grade reasoning and analysis"
+    },
+    {
+      "model_name": "openai/o4-mini",
+      "aliases": ["o4-mini", "o4mini"],
+      "context_window": 200000,
+      "supports_extended_thinking": false,
+      "supports_json_mode": true,
+      "supports_function_calling": true,
+      "description": "OpenAI's o4-mini model - optimized for shorter contexts with rapid reasoning"
+    }
+  ]
+}

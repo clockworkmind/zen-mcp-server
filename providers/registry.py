@@ -99,18 +99,37 @@ class ModelProviderRegistry:
     def get_provider_for_model(cls, model_name: str) -> Optional[ModelProvider]:
         """Get provider instance for a specific model name.
 
+        Supports explicit provider selection via 'provider:model' syntax.
+        Falls back to priority-based resolution for unprefixed names.
+
         Provider priority order:
         1. Native APIs (GOOGLE, OPENAI) - Most direct and efficient
         2. CUSTOM - For local/private models with specific endpoints
         3. OPENROUTER - Catch-all for cloud models via unified API
+        4. REQUESTY - Alternative routing service
 
         Args:
             model_name: Name of the model (e.g., "gemini-2.5-flash-preview-05-20", "o3-mini")
+                       or explicit selection (e.g., "requesty:claude", "openrouter:gemini")
 
         Returns:
             ModelProvider instance that supports this model
         """
         logging.debug(f"get_provider_for_model called with model_name='{model_name}'")
+
+        # Check for explicit provider syntax
+        if ':' in model_name and model_name.count(':') == 1:
+            provider_str, model_part = model_name.split(':', 1)
+            try:
+                # Normalize provider string to match enum (enum values are lowercase)
+                provider_type = ProviderType(provider_str.lower())
+                provider = cls.get_provider(provider_type)
+                if provider and provider.validate_model_name(model_part):
+                    logging.info(f"Explicit provider selection: {provider_type} for model '{model_part}'")
+                    return provider
+            except ValueError:
+                # Not a valid provider name, continue with normal resolution
+                logging.debug(f"'{provider_str}' is not a valid provider name")
 
         # Define explicit provider priority order
         # Native APIs first, then custom endpoints, then catch-all providers
@@ -119,6 +138,7 @@ class ModelProviderRegistry:
             ProviderType.OPENAI,  # Direct OpenAI access
             ProviderType.CUSTOM,  # Local/self-hosted models
             ProviderType.OPENROUTER,  # Catch-all for cloud models
+            ProviderType.REQUESTY,  # Alternative routing service
         ]
 
         # Check providers in priority order
@@ -231,6 +251,7 @@ class ModelProviderRegistry:
             ProviderType.GOOGLE: "GEMINI_API_KEY",
             ProviderType.OPENAI: "OPENAI_API_KEY",
             ProviderType.OPENROUTER: "OPENROUTER_API_KEY",
+            ProviderType.REQUESTY: "REQUESTY_API_KEY",
             ProviderType.CUSTOM: "CUSTOM_API_KEY",  # Can be empty for providers that don't need auth
         }
 

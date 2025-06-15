@@ -163,12 +163,14 @@ def configure_providers():
     from providers.gemini import GeminiModelProvider
     from providers.openai import OpenAIModelProvider
     from providers.openrouter import OpenRouterProvider
+    from providers.requesty import RequestyProvider
     from utils.model_restrictions import get_restriction_service
 
     valid_providers = []
     has_native_apis = False
     has_openrouter = False
     has_custom = False
+    has_requesty = False
 
     # Check for Gemini API key
     gemini_key = os.getenv("GEMINI_API_KEY")
@@ -190,6 +192,13 @@ def configure_providers():
         valid_providers.append("OpenRouter")
         has_openrouter = True
         logger.info("OpenRouter API key found - Multiple models available via OpenRouter")
+
+    # Check for Requesty API key
+    requesty_key = os.getenv("REQUESTY_API_KEY")
+    if requesty_key and requesty_key != "your_requesty_api_key_here":
+        valid_providers.append("Requesty")
+        has_requesty = True
+        logger.info("Requesty API key found - Multiple models available via Requesty")
 
     # Check for custom API endpoint (Ollama, vLLM, etc.)
     custom_url = os.getenv("CUSTOM_API_URL")
@@ -226,9 +235,13 @@ def configure_providers():
 
         ModelProviderRegistry.register_provider(ProviderType.CUSTOM, custom_provider_factory)
 
-    # 3. OpenRouter last (catch-all for everything else)
+    # 3. OpenRouter (catch-all for cloud models)
     if has_openrouter:
         ModelProviderRegistry.register_provider(ProviderType.OPENROUTER, OpenRouterProvider)
+
+    # 4. Requesty last (alternative routing service)
+    if has_requesty:
+        ModelProviderRegistry.register_provider(ProviderType.REQUESTY, RequestyProvider)
 
     # Require at least one valid provider
     if not valid_providers:
@@ -237,6 +250,7 @@ def configure_providers():
             "- GEMINI_API_KEY for Gemini models\n"
             "- OPENAI_API_KEY for OpenAI o3 model\n"
             "- OPENROUTER_API_KEY for OpenRouter (multiple models)\n"
+            "- REQUESTY_API_KEY for Requesty (multiple models)\n"
             "- CUSTOM_API_URL for local models (Ollama, vLLM, etc.)"
         )
 
@@ -250,6 +264,8 @@ def configure_providers():
         priority_info.append("Custom endpoints")
     if has_openrouter:
         priority_info.append("OpenRouter (catch-all)")
+    if has_requesty:
+        priority_info.append("Requesty (alternative)")
 
     if len(priority_info) > 1:
         logger.info(f"Provider priority: {' → '.join(priority_info)}")

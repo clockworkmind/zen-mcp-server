@@ -5,6 +5,7 @@ This guide covers setting up multiple AI model providers including OpenRouter, c
 ## Supported Providers
 
 - **OpenRouter** - Unified access to multiple commercial models (GPT-4, Claude, Mistral, etc.)
+- **Requesty** - Alternative unified access to commercial models
 - **Custom API endpoints** - Local models (Ollama, vLLM, LM Studio, text-generation-webui)
 - **Self-hosted APIs** - Any OpenAI-compatible endpoint
 
@@ -14,6 +15,11 @@ This guide covers setting up multiple AI model providers including OpenRouter, c
 - Access to models not available through native APIs (GPT-4, Claude, Mistral, etc.)
 - Simplified billing across multiple model providers
 - Experimentation with various models without separate API keys
+
+**Use Requesty when you want:**
+- Alternative access to commercial models
+- Different pricing or model availability than OpenRouter
+- Specific models available through Requesty
 
 **Use Custom URLs for:**
 - **Local models** like Ollama (Llama, Mistral, etc.)
@@ -28,10 +34,11 @@ This guide covers setting up multiple AI model providers including OpenRouter, c
 
 **Mix & Match:** You can use multiple providers simultaneously! For example:
 - OpenRouter for expensive commercial models (GPT-4, Claude)
+- Requesty for specific commercial models
 - Custom URLs for local models (Ollama Llama)
 - Native APIs for specific providers (Gemini Pro with extended thinking)
 
-**Note:** When multiple providers offer the same model name, native APIs take priority over OpenRouter.
+**Note:** When multiple providers offer the same model name, native APIs take priority over OpenRouter and Requesty.
 
 ## Model Aliases
 
@@ -81,6 +88,23 @@ OPENROUTER_API_KEY=your-openrouter-api-key
 > This gives you centralized control over model access and spending limits.
 
 That's it! Docker Compose already includes all necessary configuration.
+
+### Option 1b: Requesty Setup
+
+#### 1. Get API Key
+1. Sign up at [requesty.ai](https://requesty.ai/)
+2. Create an API key from your dashboard
+3. Add credits to your account
+
+#### 2. Set Environment Variable
+```bash
+# Add to your .env file
+REQUESTY_API_KEY=your-requesty-api-key
+```
+
+> **Note:** Control which models can be used and monitor usage directly in your Requesty dashboard.
+
+That's it! The server will automatically detect and use your Requesty configuration.
 
 ### Option 2: Custom API Setup (Ollama, vLLM, etc.)
 
@@ -192,6 +216,7 @@ The system automatically routes models to the appropriate provider:
 1. Native APIs (Google, OpenAI) - if API keys are available
 2. Custom endpoints - for models marked with `is_custom: true`  
 3. OpenRouter - catch-all for cloud models
+4. Requesty - alternative routing service
 
 This ensures clean separation between local and cloud models while maintaining flexibility for unknown models.
 

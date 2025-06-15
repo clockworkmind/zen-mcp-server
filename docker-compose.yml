@@ -34,6 +34,8 @@ services:
       # OpenRouter support
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
       - CUSTOM_MODELS_CONFIG_PATH=${CUSTOM_MODELS_CONFIG_PATH:-}
+      # Requesty support
+      - REQUESTY_API_KEY=${REQUESTY_API_KEY:-}
       # Custom API endpoint support (for Ollama, vLLM, etc.)
       - CUSTOM_API_URL=${CUSTOM_API_URL:-}
       - CUSTOM_API_KEY=${CUSTOM_API_KEY:-}
@@ -45,6 +47,7 @@ services:
       # Model usage restrictions
       - OPENAI_ALLOWED_MODELS=${OPENAI_ALLOWED_MODELS:-}
       - GOOGLE_ALLOWED_MODELS=${GOOGLE_ALLOWED_MODELS:-}
+      - REQUESTY_ALLOWED_MODELS=${REQUESTY_ALLOWED_MODELS:-}
       - REDIS_URL=redis://redis:6379/0
       # Use HOME not PWD: Claude needs access to any absolute file path, not just current project,
       # and Claude Code could be running from multiple locations at the same time
